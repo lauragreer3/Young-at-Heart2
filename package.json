@@ -3,18 +3,20 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
-  },
-  "scripts": {
-    "start": "node ./bin/www",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.9",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
   }
 }

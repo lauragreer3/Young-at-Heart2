@@ -4,6 +4,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var config = require('./config/database');
+var api = require('./routes/api');
+
+mongoose.connect(config.database);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +17,16 @@ var vacationRouter = require('./routes/vacation');
 
 
 var app = express();
+
+//Make server CORS-ENABLE
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+//initialize passport
+app.use(passport.initialize());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
