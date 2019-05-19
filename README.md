@@ -8,7 +8,7 @@ Users can create an account which will allow them to create a vacation plan. Onc
 This app is deployed on heroku. If you would like to try it out, it is available at http://young-at-heart.herokuapp.com
 
 ## Features
-Pulls information from https://touringplans.com/api and uses the API in the npm package from https:github.com/cubehouse/themeparks to get attaction wait times and information.
+Pulls information from https://touringplans.com/api and uses the API in the npm package from https://github.com/cubehouse/themeparks to get attaction wait times and information.
 
 ### Data Layout
 
