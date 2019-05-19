@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('./config/database');
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useNewUrlParser: true });
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
