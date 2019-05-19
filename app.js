@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('./config/database');
 var Themeparks = require('themeparks');
-var cacheManager = require('cache-manager-fs-binary');
+var cacheManager = require('cache-manager');
 
 mongoose.connect(config.database, { useNewUrlParser: true });
 

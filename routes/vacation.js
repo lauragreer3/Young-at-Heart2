@@ -22,7 +22,7 @@ router.post('/', passport.authenticate('jwt', { session: false}), function(req, 
     if (token) {
       Vacation.find(function (err, Vacations) {
         if (err) return next(err);
-        res.json(vacations);
+        res.json(Vacations);
       });
     } else {
       return res.status(403).send({success: false, msg: 'Unauthorized.'});
