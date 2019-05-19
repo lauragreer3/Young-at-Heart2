@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
@@ -16,9 +16,9 @@ ReactDOM.render(
         <div>
             <nav>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about_us">About Us</Link></li>
-                    <li><Link to="/contact_us">Contact Us</Link></li>
+                    <li><NavLink to="/">Home</NavLink></li>
+                    <li><NavLink to="/about_us">About Us</NavLink></li>
+                    <li><NavLink to="/contact_us">Contact Us</NavLink></li>
                 </ul>
             </nav>
         </div>
