@@ -13,7 +13,15 @@ router.post('/register', function(req, res) {
     } else {
       var newUser = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        phone_number: req.body.phone_number,
+        address: {
+          first_line: req.body.address_1,
+          second_line: req.body.address_2,
+          city: req.body.city,
+          state: req.body.state,
+          zip: req.body.zip
+        }
       });
       // save the user
       newUser.save(function(err) {
