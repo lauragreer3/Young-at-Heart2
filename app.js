@@ -7,6 +7,8 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('./config/database');
+var Themeparks = require('themeparks');
+var cacheManager = require('cache-manager-fs-binary');
 
 mongoose.connect(config.database, { useNewUrlParser: true });
 
@@ -15,7 +17,6 @@ var usersRouter = require('./routes/users');
 var vacationRouter = require('./routes/vacation');
 var authRouter = require('./routes/auth');
 
-
 var app = express();
 
 //Make server CORS-ENABLE
@@ -23,6 +24,19 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
+});
+
+//setup caching for themeparks library
+Themeparks.Settings.Cache = cacheManager.caching({
+  store: require('cache-manager-fs-binary'),
+  options: {
+    reviveBuffers: false,
+    binaryAsStream: true,
+    ttl: 60 * 60,
+    maxsize: 1000 * 1000 * 1000,
+    path: 'diskcache',
+    preventfill: false
+  }
 });
 
 //initialize passport
