@@ -14,6 +14,7 @@ mongoose.connect(config.database);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var vacationRouter = require('./routes/vacation');
+var authRouter = require('/routes/auth');
 
 
 var app = express();
@@ -41,7 +42,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('api/vacation', vacation);
+app.use('api/vacation', vacationRouter);
+app.use('/api/auth', authRouter);
 
 
 // catch 404 and forward to error handler
