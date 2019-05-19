@@ -1,4 +1,4 @@
-#Young at Heart
+# Young at Heart
 
 ## Overview
 Users can create an account which will allow them to create a vacation plan. Once a vacation plan has been created, a list of available parks will be presented for them to choose from which will dictate the information available to them pulled from the various APIs with information concerning wait times, restaurant options, the ride availability for each day in their vacation so that they can plan which days to spend where. Users can save their vacation planning calendar and review it as their vacation draws closer in order to make any changes based on updated information concerning availability and wait times at the parks they choose. 
@@ -42,7 +42,6 @@ Pulls information from https://touringplans.com/api and uses the API in the npm 
     - id
 - Parks 
     - name
-    - id
     - date_added
     - date_modified
     - description
