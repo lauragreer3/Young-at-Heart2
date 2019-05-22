@@ -18,7 +18,7 @@ class VacationDisplay extends Component {
   }
 
   componentDidMount() {
-      fetch("/api/vacation/vacations/" + this.state.user_id)
+      fetch("/api/vacation/")
       .then(res => res.json())
       .then(
           (result) => {
