@@ -37,9 +37,9 @@ router.post('/create_vacation', passport.authenticate('jwt', { session: false}),
   router.get('/', passport.authenticate('jwt', { session: false}), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-      Vacation.find({user_id: req.user._id}, function (err, Vacations) {
-        if (err) return next(err);
-        res.json(Vacations);
+      Vacation.find({user_id: req.user._id}, function (err, vacations) {
+        if (err) return res.send({success: false, msg: 'Error finding vacation', err: err});
+        res.json(vacations);
       });
     } else {
       return res.status(403).send({success: false, msg: 'Unauthorized.'});

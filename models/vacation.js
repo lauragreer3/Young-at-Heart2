@@ -33,7 +33,7 @@ var VacationSchema = new Schema({
         }
     ],
     user_id: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         required: true
     }
 

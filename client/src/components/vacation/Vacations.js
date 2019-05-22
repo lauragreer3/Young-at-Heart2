@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../Login.css';
-import { VacationDisplay } from './VacationDisplay';
+import VacationDisplay from './VacationDisplay';
 
-class VacationDisplay extends Component {
+class Vacations extends Component {
 
   constructor() {
     super();
@@ -54,3 +54,4 @@ class VacationDisplay extends Component {
         }   
     }
 }
+export default Vacations;
