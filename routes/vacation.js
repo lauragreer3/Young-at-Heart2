@@ -2,15 +2,32 @@ var express = require('express');
 var router = express.Router();
 var Vacation = require('../models/vacation');
 var passport = require('passport');
+var mongoose = require('mongoose');
 require('../config/passport')(passport);
+var jwt = require('jsonwebtoken');
+var User = require('../models/user');
 
-//save book router
-router.post('/', passport.authenticate('jwt', { session: false}), function(req, res) {
+//save vacation router
+router.post('/create_vacation', passport.authenticate('jwt', { session: false}), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-      Vacation.create(req.body, function (err, post) {
-        if (err) return next(err);
-        res.json(post);
+      // Vacation.create(req.body, function (err, post) {
+      //   if (err) return next(err);
+      //   res.json(post);
+      // });
+      //get user id from json web token
+
+      var newVacation = new Vacation({
+        vacation_nickname: req.body.vacation_nickname,
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+        user_id: req.user._id //@TODO FIGURE OUT HOW TO GET USER ID FROM JSON WEB TOKEN
+      });
+      newVacation.save(function(err) {
+        if(err) {
+          return res.json({success: false, msg: 'Failed to save new vacation'})
+        }
+        res.json({success: true, msg: 'Created new Vacation'})
       });
     } else {
       return res.status(403).send({success: false, msg: 'Unauthorized.'});
@@ -20,7 +37,7 @@ router.post('/', passport.authenticate('jwt', { session: false}), function(req, 
   router.get('/', passport.authenticate('jwt', { session: false}), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-      Vacation.find(function (err, Vacations) {
+      Vacation.find({user_id: req.user._id}, function (err, Vacations) {
         if (err) return next(err);
         res.json(Vacations);
       });
@@ -41,4 +58,5 @@ router.post('/', passport.authenticate('jwt', { session: false}), function(req, 
       return null;
     }
   };
-module.exports = router;
+
+  module.exports = router;

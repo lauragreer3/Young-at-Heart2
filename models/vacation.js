@@ -31,7 +31,13 @@ var VacationSchema = new Schema({
             dinner_venue: String,
             accomodations: String
         }
-    ]
+    ],
+    user_id: {
+        type: Number,
+        required: true
+    }
+
+    
 });
 
 module.exports = mongoose.model('Vacation', VacationSchema);
