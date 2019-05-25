@@ -23,12 +23,16 @@ router.post('/create_vacation', passport.authenticate('jwt', { session: false}),
         end_date: req.body.end_date,
         user_id: req.user._id //@TODO FIGURE OUT HOW TO GET USER ID FROM JSON WEB TOKEN
       });
-      newVacation.save(function(err) {
+      newVacation.save(function(err, vacation) {
         if(err) {
-          return res.json({success: false, msg: 'Failed to save new vacation'})
+          return res.json({success: false, msg: 'Failed to save new vacation'});
         }
-        res.json({success: true, msg: 'Created new Vacation'})
-      });
+        else
+        {
+          return res.json({success: true, msg: 'Created new Vacation', vacation: vacation, id: vacation.id});
+        }
+
+      });  
     } else {
       return res.status(403).send({success: false, msg: 'Unauthorized.'});
     }
@@ -38,10 +42,16 @@ router.post('/create_vacation', passport.authenticate('jwt', { session: false}),
     var token = getToken(req.headers);
     if (token) {
       Vacation.find({user_id: req.user._id}, function (err, vacations) {
-        if (err) return res.send({success: false, msg: 'Error finding vacation', err: err});
-        res.json(vacations);
+        if (err) {
+          return res.send({success: false, msg: 'Error finding vacation', err: err});
+        } else {
+          return res.json(vacations);
+        }
+
       });
     } else {
+      console.log('no token');
+      
       return res.status(403).send({success: false, msg: 'Unauthorized.'});
     }
   });
