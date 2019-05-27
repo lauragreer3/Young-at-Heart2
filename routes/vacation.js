@@ -56,6 +56,26 @@ router.post('/create_vacation', passport.authenticate('jwt', { session: false}),
     }
   });
 
+  router.post('/delete_vacation', passport.authenticate('jwt', { session: false}), function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+      Vacation.findOneAndDelete({user_id: req.user._id, _id: req.body.vacation_id}, function (err, vacations) {
+        if (err) {
+          return res.json({success: false, msg: 'Error finding vacation', err: err});
+        } else {
+          return res.json({ success: true, msg: 'deleted vacation ' + req.body.vacation_id});
+
+        }
+
+      });
+    } else {
+      console.log('no token');
+      
+      return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }
+  });
+
+
   getToken = function (headers) {
     if (headers && headers.authorization) {
       var parted = headers.authorization.split(' ');

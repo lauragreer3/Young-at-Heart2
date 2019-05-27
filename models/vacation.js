@@ -7,8 +7,7 @@ var VacationSchema = new Schema({
         required: true
     },
     start_date: {
-        type: Date,
-        default: Date.now, 
+        type: Date, 
         required: true
     },
     end_date: {
@@ -38,6 +37,39 @@ var VacationSchema = new Schema({
     }
 
     
+});
+
+VacationSchema.pre('save', function (next) {
+    var vacation = this;
+    console.log('running post save hook');
+    console.log(vacation);
+    console.log('start date' + vacation.start_date.toLocaleDateString());
+    if(this.isNew) {
+        for (var d = new Date(vacation.start_date); d <= vacation.end_date; d.setDate(d.getDate() + 1)) {
+            vacation.vacation_days.push({
+                vacation_date: new Date(d)
+            });
+            // vacation.markModified('vacation_days');
+            console.log('adding day to vacation: ' + d.toLocaleDateString());
+        }
+        console.log('vacation start date after loop: ' + vacation.start_date.toLocaleDateString());
+        return next();
+    }
+    else {
+        console.log(vacation);
+        return next();
+    }
+    
+    
+    
+   
+
+    // vacation_schema.findIdAndUpdate(vacation._id, vacation, function(err, vacation) {
+    //     if(err) {
+    //         return next(err);
+    //     }
+    //     console.log('saved vacation_days');
+    // })
 });
 
 module.exports = mongoose.model('Vacation', VacationSchema);
