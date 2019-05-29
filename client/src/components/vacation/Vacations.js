@@ -17,7 +17,22 @@ class Vacations extends Component {
     };
   }
 
-  componentDidMount() {
+  onDelete(vacation_id, e) {
+    //@todo: create a model dialog to ask if this user id is sure they want to delete this vacation
+    //make a call to the  
+    console.log('deleting id ' + vacation_id);
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post('/api/vacation/delete_vacation', { vacation_id: vacation_id })
+    .then(res => {
+      // window.location.hash = '#/my_vacations';
+      this.props.history.push('/my_vacations');
+      
+    });
+}
+
+
+
+  loadAllVacations() {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
       axios.get('/api/vacation')
         .then(res => {
@@ -36,25 +51,15 @@ class Vacations extends Component {
             //     this.props.history.push('/login');
             // }
             console.log(error);
-        });
-    //   fetch("/api/vacation/")
-    //   .then(res => res.json())
-    //   .then(
-    //       (result) => {
-    //           this.setState({
-    //               isLoaded: true,
-    //               vacations: result.vacations
-    //         });
-    //         },
-    //         (error) => {
-    //             this.setState({
-    //                 isLoaded: true,
-    //                 error
-    //       });
-    //   }
-    // );  
+        }); 
   }  
+  componentDidMount() {
+      this.loadAllVacations();
+  }
 
+  componentDidUpdate() {
+      this.loadAllVacations();
+  }
 
     render() {
         const { error, isLoaded, vacations } = this.state;
@@ -72,7 +77,7 @@ class Vacations extends Component {
                         end_date={vacation.end_date}
                         id={vacation._id}
                         key={vacation._id}
-                        
+                        onDelete={this.onDelete}
                      />
                 ))}
             </div>

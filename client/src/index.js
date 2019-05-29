@@ -12,6 +12,7 @@ import ContactUs from './components/pages/contact_us';
 import CreateVacationForm from './components/vacation/CreateVacationForm';
 import Vacations from './components/vacation/Vacations';
 import Create from './components/Register';
+import VacationView from './components/vacation/VacationView';
 
 ReactDOM.render(
     <Router>
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route path='/contact_us' component={ContactUs} />
             <Route path='/create_vacation' component={CreateVacationForm} />
             <Route path='/my_vacations' component={Vacations} />
+            <Route path='/view_vacation/:vacation_id' component={VacationView} />
         </div>
     </Router>,
      document.getElementById('root')

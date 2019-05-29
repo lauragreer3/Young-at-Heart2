@@ -14,19 +14,20 @@ class VacationDisplay extends Component {
       end_date: new Date(props.end_date),
       id: props.id
     };
+    this.onParentDelete = props.onDelete;
   }
 
-  onDelete(vacation_id, e) {
-      //@todo: create a model dialog to ask if this user id is sure they want to delete this vacation
-      //make a call to the  
-      console.log('deleting id ' + vacation_id);
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.post('/api/vacation/delete_vacation', { vacation_id: vacation_id })
-      .then(res => {
-        // window.location.hash = '#/my_vacations';
-        this.props.history.push('/my_vacations');
-      });
-  }
+//   onDelete(vacation_id, e) {
+//       //@todo: create a model dialog to ask if this user id is sure they want to delete this vacation
+//       //make a call to the  
+//       console.log('deleting id ' + vacation_id);
+//       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+//       axios.post('/api/vacation/delete_vacation', { vacation_id: vacation_id })
+//       .then(res => {
+//         // window.location.hash = '#/my_vacations';
+//         this.props.history.push('/my_vacations');
+//       });
+//   }
 
   render() {
       return (
@@ -41,7 +42,7 @@ class VacationDisplay extends Component {
                         <Link to={`/view_vacation/${ this.state.id }`}>View vacation</Link>
                     </div>
                     <div className="col-auto d-none d-lg-block">
-                        <a href="#" onClick={ (e) => this.onDelete(this.state.id, e)}>Delete</a>
+                        <a href="#" onClick={ (e) => this.onParentDelete(this.state.id, e)}>Delete</a>
                     </div>
                 </div>
             </div>
