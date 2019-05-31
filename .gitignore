@@ -62,3 +62,6 @@ typings/
 
 #vscode workspace file
 *.code-workspace
+
+#disk cache for themeparks api
+diskcache/
