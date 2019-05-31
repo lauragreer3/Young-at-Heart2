@@ -25,7 +25,7 @@ var VacationSchema = new Schema({
     vacation_days: [
         {
             vacation_date: Date,
-            park_selected: Number,
+            park_selected: { type: String, default: 'WDW_MK' },
             lunch_venue: String,
             dinner_venue: String,
             accomodations: String
@@ -47,7 +47,7 @@ VacationSchema.pre('save', function (next) {
     if(this.isNew) {
         for (var d = new Date(vacation.start_date); d <= vacation.end_date; d.setDate(d.getDate() + 1)) {
             vacation.vacation_days.push({
-                vacation_date: new Date(d)
+                vacation_date: new Date(d),
             });
             // vacation.markModified('vacation_days');
             console.log('adding day to vacation: ' + d.toLocaleDateString());

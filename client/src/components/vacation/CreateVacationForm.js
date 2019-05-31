@@ -32,7 +32,8 @@ class CreateVacationForm extends Component {
 
     axios.post('/api/vacation/create_vacation', { vacation_nickname, start_date, end_date })
       .then((result) => {
-        this.props.history.push("/view_vacation/" + result.id)
+        // this.props.history.push("/view_vacation/" + result.id)
+        this.props.history.push("/my_vacations");
       });
   }
 

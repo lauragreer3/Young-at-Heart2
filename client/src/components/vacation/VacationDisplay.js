@@ -15,6 +15,7 @@ class VacationDisplay extends Component {
       id: props.id
     };
     this.onParentDelete = props.onDelete;
+    this.parentDisplay = props.parentDisplay;
   }
 
 //   onDelete(vacation_id, e) {
@@ -42,7 +43,7 @@ class VacationDisplay extends Component {
                         <Link to={`/view_vacation/${ this.state.id }`}>View vacation</Link>
                     </div>
                     <div className="col-auto d-none d-lg-block">
-                        <a href="#" onClick={ (e) => this.onParentDelete(this.state.id, e)}>Delete</a>
+                        <a href="#" onClick={ (e) => this.onParentDelete(this.state.id, e, this.parentDisplay)}>Delete</a>
                     </div>
                 </div>
             </div>
