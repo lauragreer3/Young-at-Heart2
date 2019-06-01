@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../Login.css';
-import VacationDisplay from './VacationDisplay';
-import DatePicker from 'react-date-picker';
 import Select from 'react-select';
+import { ReactComponent as MagicKingdomLogo } from '../../assets/logos/MagicKingdom.svg';
+import { ReactComponent as EpcotLogo } from '../../assets/logos/Epcot.svg';
+import { ReactComponent as HollywoodStudiosLogo } from '../../assets/logos/DisneySorcerer.svg';
+import { ReactComponent as AnimalKingdomLogo} from '../../assets/logos/AnimalKingdom.svg';
+import UIOA_LOGO from '../../assets/logos/UIOA.png';
+import USTUDIOS_FL_LOGO from '../../assets/logos/UniversalStudiosFlorida.png';
 
 const park_options = [
     { value: 'WDW_MK', label: 'Magic Kingdom' },
@@ -16,7 +20,37 @@ const park_options = [
     { value: 'USTUDIOS_IOA_FL', label: 'Islands Of Adventure' },
 ];
 
+/*
+    Small Functional Component for displaying the correct park logo depending on which park is selected
+*/
+function ParkLogo(props) {
+    var park_image = USTUDIOS_FL_LOGO;
+    console.log(props);
+    switch (props.park_selected) {
+        case "WDW_MK":
+            park_image = MagicKingdomLogo;
+            return ( <MagicKingdomLogo />)
+        case "WDW_EPCOT":
+            park_image = EpcotLogo;
+            return ( <EpcotLogo />);
+        case "WDW_HS":
+            park_image = HollywoodStudiosLogo;
+            return ( <HollywoodStudiosLogo />);
+        case "WDW_AK":
+            park_image = AnimalKingdomLogo;
+            return ( <AnimalKingdomLogo />);
+        case "USTUDIOS_FL":
+            park_image = USTUDIOS_FL_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img>)
+        case "USTUDIOS_IOA_FL":
+            park_image = UIOA_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img> );
+        default:
+            park_image = USTUDIOS_FL_LOGO;
+            return ( <MagicKingdomLogo /> ); 
+    }
 
+}
 class VacationDay extends Component {
 
     constructor(props) {
@@ -31,15 +65,16 @@ class VacationDay extends Component {
         this._isLoaded = false;
     }
 
-    handleParkChange = (current_park, e) => {
-        this.setState({
-            current_park: e.target.value,
-            previous_park: this.state.current_park
+    handleParkChange = (current_park, { action}) => {
+        if(action === 'input-change') {
+            this.setState({
+                current_park: current_park,
+                previous_park: this.state.current_park
         });
         console.log('option selected: ');
         console.log(this.state.current_park);
     }
-
+}
     load_park_wait_times(date_to_load=Date.now, park_id=this.state.current_park) {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         axios.post('/api/parks/' , {
@@ -75,7 +110,6 @@ class VacationDay extends Component {
 
     render() {
         const date_formatted = new Date(this.props.vacation_date).toLocaleDateString();
-        const { current_park } = this.state;
         const { rides } = this.state;
         return (
         <div className="row h-40">
@@ -85,12 +119,10 @@ class VacationDay extends Component {
                         <div className="col-3">{date_formatted}</div>
                         <div className="col-9">
                             <Select
-                                value={current_park}
-                                onChange={this.handleParkChange}
+                                inputvalue={this.state.current_park}
+                                onInputChange={this.handleParkChange}
                                 options={park_options}
-                                selected={current_park}
-                                placeholder='Select a park...'
-                                defaultValue='WDW_MK'
+                                defaultValue={park_options[0]}
                             />    
                         </div>
                     </div>
@@ -98,11 +130,11 @@ class VacationDay extends Component {
                     <div className="card-body">
                         <div className="row">
                             <div className="col-4">
-                                <div className="row"><img src="..." alt="Park Image"></img></div>
-                                <div className="row">Overall Wait Time:</div>
+                                <div className="row"><ParkLogo park_selected={this.state.current_park} /></div>
+                                <div className="row">Overall Wait Time</div>
                                 <div className="row"><h3>5/10</h3></div>
                             </div>
-                            <div className="col-8">
+                            <div className="col-8 overflow-auto .wait-table-container">
                                 <table className="table table-striped table-bordered table-condensed table-sm waiting-table">
                                     <thead>
                                         <tr>
