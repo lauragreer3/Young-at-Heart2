@@ -45,11 +45,11 @@
   width: 100%;
 }
 .waiting-table .wait-column {
-  width: 85px;
+  width: 125px;
 }
 
 .waiting-table .open-column {
-  width: 75px;
+  width: 125px;
 }
 
 .waiting-table tr {

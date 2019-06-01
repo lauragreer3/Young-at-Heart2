@@ -30,7 +30,7 @@ class VacationDay extends Component {
     }
 
     handleParkChange = (current_park, e) => {
-        this.setState({ current_park });
+        this.setState({ current_park: e.target.value });
         console.log('option selected: ' + current_park);
     }
 
@@ -106,8 +106,8 @@ class VacationDay extends Component {
                                             rides.map(ride => (
                                                 <tr key={ride.id}>
                                                     <td>{ride.name}</td>
-                                                    <td>{ride.waitTime}</td>
-                                                    <td>{ride.active}</td>
+                                                    <td>{ride.waitTime} min.</td>
+                                                    <td>{ride.active ? "Yes"}</td>
                                                 </tr>
                                             ))
                                         }
