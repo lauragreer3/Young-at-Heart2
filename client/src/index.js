@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
@@ -16,27 +16,40 @@ import VacationView from './components/vacation/VacationView';
 
 ReactDOM.render(
     <Router>
-        <div>
-            <nav>
-                <ul>
-                    <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/about_us">About Us</NavLink></li>
-                    <li><NavLink to="/contact_us">Contact Us</NavLink></li>
-                    <li><NavLink to="/create_vacation">Create Vacation</NavLink></li>
-                    <li><NavLink to="/my_vacations">My Vacations</NavLink></li>
-                </ul>
+        <header>
+            <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a className="navbar-brand" href="#">Young At Heart</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-control="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul>
+                        <li className="nav-item"><NavLink to="/">Home</NavLink></li>
+                        <li className="nav-item"><NavLink to="/about_us">About Us</NavLink></li>
+                        <li className="nav-item"><NavLink to="/contact_us">Contact Us</NavLink></li>
+                        <li className="nav-item"><NavLink to="/create_vacation">Create Vacation</NavLink></li>
+                        <li className="nav-item"><NavLink to="/my_vacations">My Vacations</NavLink></li>
+                    </ul>
+                </div>
             </nav>
-        </div>
-        <div>
-            <Route exact path='/' component={App} />
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-            <Route path='/about_us' component={AboutUs} />
-            <Route path='/contact_us' component={ContactUs} />
-            <Route path='/create_vacation' component={CreateVacationForm} />
-            <Route path='/my_vacations' component={Vacations} />
-            <Route path='/view_vacation/:vacation_id' component={VacationView} />
-        </div>
+        </header>
+        <main role="main">
+            <div className="container-fluid">
+                <Route exact path='/' component={App} />
+                <Route path='/login' component={Login} />
+                <Route path='/register' component={Register} />
+                <Route path='/about_us' component={AboutUs} />
+                <Route path='/contact_us' component={ContactUs} />
+                <Route path='/create_vacation' component={CreateVacationForm} />
+                <Route path='/my_vacations' component={Vacations} />
+                <Route path='/view_vacation/:vacation_id' component={VacationView} />
+            </div>
+            <footer class="container">
+                <p className="float-right"><a href="#">Back to Top</a></p>
+                <p>&copy; 2019 Young At Heart, Inc. &middot; <Link to="/privacy">Privacy</Link>
+                &middot; <Link to="/tos">Terms</Link></p>
+            </footer>
+        </main>    
     </Router>,
      document.getElementById('root')
     );

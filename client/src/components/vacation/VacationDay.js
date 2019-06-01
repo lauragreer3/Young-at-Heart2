@@ -23,18 +23,24 @@ class VacationDay extends Component {
         super();
         this.state = {
             current_park: 'WDW_MK',
+            previous_park: 'WDW_MK',
             vacation_day: props.vacation_day,
             overall_wait_time: 0,
             rides: []
         };
+        this._isLoaded = false;
     }
 
     handleParkChange = (current_park, e) => {
-        this.setState({ current_park: e.target.value });
-        console.log('option selected: ' + current_park);
+        this.setState({
+            current_park: e.target.value,
+            previous_park: this.state.current_park
+        });
+        console.log('option selected: ');
+        console.log(this.state.current_park);
     }
 
-    load_park_wait_times(date_to_load, park_id) {
+    load_park_wait_times(date_to_load=Date.now, park_id=this.state.current_park) {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         axios.post('/api/parks/' , {
             park_id: park_id,
@@ -43,6 +49,7 @@ class VacationDay extends Component {
         .then(res => {
             console.log('loaded park wait times');
             console.log(res.data);
+            this._isLoaded = true;
             this.setState({ rides: res.data });
         })
         .catch((error) => {
@@ -56,6 +63,9 @@ class VacationDay extends Component {
 
     componentDidUpdate() {
         console.log('component did update');
+        if(!this._isLoaded) {
+            this.load_park_wait_times();
+        }
     }
 
     displayLogo() {
@@ -97,8 +107,8 @@ class VacationDay extends Component {
                                     <thead>
                                         <tr>
                                             <th className="ride-column">Ride</th>
-                                            <th className="ride-column">Wait Time</th>
-                                            <th className="ride-column">Open?</th>
+                                            <th className="wait-column">Wait</th>
+                                            <th className="open-column">Open?</th>
                                         </tr>
                                     </thead>
                                     <tbody className="wait-time-table">    
@@ -106,8 +116,8 @@ class VacationDay extends Component {
                                             rides.map(ride => (
                                                 <tr key={ride.id}>
                                                     <td>{ride.name}</td>
-                                                    <td>{ride.waitTime} min.</td>
-                                                    <td>{ride.active ? "Yes"}</td>
+                                                    <td>{ride.waitTime}</td>
+                                                    <td>{ride.active ? "Yes" : "No"}</td>
                                                 </tr>
                                             ))
                                         }
