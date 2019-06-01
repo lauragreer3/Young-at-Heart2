@@ -1,19 +1,44 @@
+/* FONT DEFINITIONS */
+@font-face {
+  font-family: 'Acme';
+  src: local('Acme'), url(./assets/fonts/AcmeRegular.ttf) format('ttf');
+}
+
+@font-face {
+  font-family: 'Wizards Magic';
+  src: local('Wizards Magic'), url(./assets/fonts/WizardsMagic.ttf) format('ttf');
+}
+
+/* Spacing for nav */
 [role="main"] {
   padding-top: 133px; /*Space for fixed navbar */
 }
 
 @media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
+  [role="main"] {
+    padding-top: 48px; /* Space for fixed navbar */
   }
 }
 
+html, body {
+  min-height: 100%;
+  font-family: 'Acme';
+}
+
+#main{
+  overflow: auto;
+  padding-bottom: 150px;
+}
+
+#main-container {
+
+}
+
 .navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: lrem;
-  background-color: rgba(0,0,0,.25);
-  box-shadow: inset -1px 0 0 rgba(0,0,0,.25);
+  padding-top: .15rem;
+  padding-bottom: .15rem;
+  font-size: 2.5rem;
+  font-family: 'Wizards Magic';
 }
 
 
@@ -49,4 +74,3 @@
 .waiting-table tr {
   display: block;
 }
-

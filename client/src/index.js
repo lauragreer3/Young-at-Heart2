@@ -23,18 +23,38 @@ ReactDOM.render(
                 <span className="navbar-toggler-icon"></span>
             </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul>
-                        <li className="nav-item"><NavLink to="/">Home</NavLink></li>
-                        <li className="nav-item"><NavLink to="/about_us">About Us</NavLink></li>
-                        <li className="nav-item"><NavLink to="/contact_us">Contact Us</NavLink></li>
-                        <li className="nav-item"><NavLink to="/create_vacation">Create Vacation</NavLink></li>
-                        <li className="nav-item"><NavLink to="/my_vacations">My Vacations</NavLink></li>
+                    <ul className="navbar-nav clearfix float-right">
+                        <li className="nav-item">
+                            <NavLink to="/" activeClassName="active" className="nav-link">
+                                Home
+                            </NavLink>
+                        </li>       
+                        <li className="nav-item">
+                            <NavLink to="/about_us" activeClassName="active" className="nav-link">
+                                About Us
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/contact_us" activeClassName="active" className="nav-link">
+                                Contact Us
+                            </NavLink>
+                        </li>
+                        <li className="nav-item" activeClassName="active" className="nav-link">
+                            <NavLink to="/create_vacation">
+                                Create Vacation
+                            </NavLink>
+                        </li>
+                        <li className="nav-item" activeClassName="active" className="nav-link">
+                            <NavLink to="/my_vacations">
+                                My Vacations
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </header>
-        <main role="main">
-            <div className="container-fluid">
+        <main role="main" className="flex-shrink-0">
+            <div className="container-fluid" id="main-container">
                 <Route exact path='/' component={App} />
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
@@ -44,12 +64,15 @@ ReactDOM.render(
                 <Route path='/my_vacations' component={Vacations} />
                 <Route path='/view_vacation/:vacation_id' component={VacationView} />
             </div>
-            <footer class="container">
+        </main> 
+        <footer className="footer mt-auto py-3 bg-dark">
+            <div className="container">
                 <p className="float-right"><a href="#">Back to Top</a></p>
                 <p>&copy; 2019 Young At Heart, Inc. &middot; <Link to="/privacy">Privacy</Link>
                 &middot; <Link to="/tos">Terms</Link></p>
-            </footer>
-        </main>    
+                </div>    
+        </footer>
+           
     </Router>,
      document.getElementById('root')
     );
