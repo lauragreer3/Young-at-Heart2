@@ -24,12 +24,12 @@ class VacationDay extends Component {
         this.state = {
             current_park: 'WDW_MK',
             vacation_day: props.vacation_day,
-            overal_wait_time: 0,
+            overall_wait_time: 0,
             rides: []
         };
     }
 
-    handleParkChange = (current_park) => {
+    handleParkChange = (current_park, e) => {
         this.setState({ current_park });
         console.log('option selected: ' + current_park);
     }
@@ -43,7 +43,7 @@ class VacationDay extends Component {
         .then(res => {
             console.log('loaded park wait times');
             console.log(res.data);
-            this.setState({ vacation_day: res.data });
+            this.setState({ rides: res.data });
         })
         .catch((error) => {
             console.log(error);
@@ -58,72 +58,66 @@ class VacationDay extends Component {
         console.log('component did update');
     }
 
+    displayLogo() {
+
+    }
+
+
     render() {
         const date_formatted = new Date(this.props.vacation_date).toLocaleDateString();
         const { current_park } = this.state;
+        const { rides } = this.state;
         return (
-        <div className="row">
-            <div className="card">
+        <div className="row h-40">
+            <div className="card col-md-10">
                 <div className="card-header">
-                <div className="row">
-                    <div className="col-3">{date_formatted}</div>
-                    <div className="col-9">
-                        <Select
-                            value={current_park}
-                            onChange={this.handleParkChange}
-                            options={park_options}
-                            selected={current_park}
-                            placeholder='Select a park...'
-                            defaultValue='WDW_MK'
-                        />    
-                    </div>
-                </div>
-                </div>
-                <div className="card-body">
                     <div className="row">
-                        <div className="col-4">
-                        
-                        </div>
-                        <div className="col-4">
-                            <div className="row"><img src="..." alt="Park Image"></img></div>
-                            <div className="row">Overall Wait Time:</div>
-                            <div className="row"><h3>5/10</h3></div>
-                        </div>
-                        <div className="col-8">
-                            <table className="table table-striped table-bordered table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>Ride</th>
-                                        <th>Wait Time</th>
-                                        <th>Open?</th>
-                                    </tr>
-                                    <tr>
-                                        <td>Space Mountain</td>
-                                        <td>2:00</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Space Mountain</td>
-                                        <td>2:00</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Space Mountain</td>
-                                        <td>2:00</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Space Mountain</td>
-                                        <td>2:00</td>
-                                        <td>Yes</td>
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div className="col-3">{date_formatted}</div>
+                        <div className="col-9">
+                            <Select
+                                value={current_park}
+                                onChange={this.handleParkChange}
+                                options={park_options}
+                                selected={current_park}
+                                placeholder='Select a park...'
+                                defaultValue='WDW_MK'
+                            />    
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>    
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-4">
+                                <div className="row"><img src="..." alt="Park Image"></img></div>
+                                <div className="row">Overall Wait Time:</div>
+                                <div className="row"><h3>5/10</h3></div>
+                            </div>
+                            <div className="col-8">
+                                <table className="table table-striped table-bordered table-condensed table-sm waiting-table">
+                                    <thead>
+                                        <tr>
+                                            <th className="ride-column">Ride</th>
+                                            <th className="ride-column">Wait Time</th>
+                                            <th className="ride-column">Open?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="wait-time-table">    
+                                        {
+                                            rides.map(ride => (
+                                                <tr key={ride.id}>
+                                                    <td>{ride.name}</td>
+                                                    <td>{ride.waitTime}</td>
+                                                    <td>{ride.active}</td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
         );
     }
 

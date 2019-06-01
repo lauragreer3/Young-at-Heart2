@@ -28,17 +28,20 @@ app.use(function(req, res, next) {
 });
 
 //setup caching for themeparks library
-Themeparks.Settings.Cache = cacheManager.caching({
-  store: require('cache-manager-fs-binary'),
-  options: {
-    reviveBuffers: false,
-    binaryAsStream: true,
-    ttl: 60 * 60,
-    maxsize: 1000 * 1000 * 1000,
-    path: 'diskcache',
-    preventfill: false
-  }
-});
+//@TODO - look into re-implementing later, problems with UnhandledPromiseRejection
+// happening on subsequent calls to cached routes in parks.js
+
+// Themeparks.Settings.Cache = cacheManager.caching({
+//   store: require('cache-manager-fs-binary'),
+//   options: {
+//     reviveBuffers: false,
+//     binaryAsStream: true,
+//     ttl: 60 * 60,
+//     maxsize: 1000 * 1000 * 1000,
+//     path: 'diskcache',
+//     preventfill: false
+//   }
+// });
 
 //initialize passport
 app.use(passport.initialize());

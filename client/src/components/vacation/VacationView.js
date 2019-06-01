@@ -23,6 +23,7 @@ class VacationView extends Component {
            description: '' 
           }
         };
+        this._isMounted = false;
     }
 
     onChange = (e) => {
@@ -31,8 +32,7 @@ class VacationView extends Component {
         this.setState(state);
     }
 
-    componentDidMount() {
-        //get the database info for this vacation
+    getVacationData() {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         axios.get('/api/vacation/' + this.props.match.params.vacation_id)
             .then(res => {
@@ -40,6 +40,16 @@ class VacationView extends Component {
                 console.log(res.data);
                 this.setState({ vacation: res.data });
             });
+    }
+
+    componentDidMount() {
+        //get the database info for this vacation
+        this._isMounted = true;
+        this._isMounted && this.getVacationData();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     onChangeStartDate = date => this.setState({ vacation: { start_date: date }})

@@ -31,3 +31,28 @@
     transform: rotate(360deg);
   }
 }
+.wait-table-container {
+  width: 100%;
+}
+
+.wait-time-table {
+  display: block;
+  overflow: auto;
+  height: 200px;
+}
+
+.waiting-table .ride-column {
+  width: 100%;
+}
+.waiting-table .wait-column {
+  width: 85px;
+}
+
+.waiting-table .open-column {
+  width: 75px;
+}
+
+.waiting-table tr {
+  display: block;
+}
+

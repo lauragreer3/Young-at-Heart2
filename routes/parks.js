@@ -62,9 +62,21 @@ router.post('/', passport.authenticate('jwt', { session: false}), function(req, 
         park_chosen.GetWaitTimes().then(function(rides) {
           // themepark_response.rides = rides;
           // themepark_response.park = park_chosen;
-          // return res.json(themepark_response);
-          console.log('Rides');
-          console.log(rides);
+          for(var i=0, ride; ride=rides[i++];) {
+            //console.log(ride.name + ": " + ride.waitTime + " minutes wait");
+            themepark_response.rides.push({
+              name: ride.name,
+              id: ride.id,
+              waitTime: ride.waitTime,
+              active: ride.active,
+              status: ride.status,
+              lastUpdate: ride.lastUpdate,
+              fastPass: ride.fastPass
+            });
+          }
+          return res.json(rides);
+          // console.log('Rides');
+          // console.log(rides);
         })
         .catch((error) => {
           console.log(error);
