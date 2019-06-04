@@ -4,10 +4,11 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../Login.css';
 // import Select from 'react-select';
-import { ReactComponent as MagicKingdomLogo } from '../../assets/logos/MagicKingdom.svg';
-import { ReactComponent as EpcotLogo } from '../../assets/logos/Epcot.svg';
-import { ReactComponent as HollywoodStudiosLogo } from '../../assets/logos/DisneySorcerer.svg';
-import { ReactComponent as AnimalKingdomLogo} from '../../assets/logos/AnimalKingdom.svg';
+// import { ReactComponent as MagicKingdomLogo } from '../../assets/logos/MagicKingdom.svg';
+import WDW_MK_LOGO from '../../assets/logos/MagicKingdom.svg';
+import WDW_EPCOT_LOGO from '../../assets/logos/Epcot.svg';
+import WDW_HS_LOGO from '../../assets/logos/DisneySorcerer.svg';
+import WDW_AK_LOGO from '../../assets/logos/AnimalKingdom.svg';
 import UIOA_LOGO from '../../assets/logos/UIOA.png';
 import USTUDIOS_FL_LOGO from '../../assets/logos/UniversalStudiosFlorida.png';
 
@@ -28,17 +29,17 @@ function ParkLogo(props) {
     console.log(props.park_selected);
     switch (props.park_selected) {
         case "WDW_MK":
-            park_image = MagicKingdomLogo;
-            return ( <MagicKingdomLogo />)
+            park_image = WDW_MK_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img> );
         case "WDW_EPCOT":
-            park_image = EpcotLogo;
-            return ( <EpcotLogo />);
+            park_image = WDW_EPCOT_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img> );
         case "WDW_HS":
-            park_image = HollywoodStudiosLogo;
-            return ( <HollywoodStudiosLogo />);
+            park_image = WDW_HS_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img> );
         case "WDW_AK":
-            park_image = AnimalKingdomLogo;
-            return ( <AnimalKingdomLogo />);
+            park_image = WDW_AK_LOGO;
+            return ( <img src={park_image} alt="park_logo"></img> );
         case "USTUDIOS_FL":
             park_image = USTUDIOS_FL_LOGO;
             return ( <img src={park_image} alt="park_logo"></img>)
@@ -47,7 +48,7 @@ function ParkLogo(props) {
             return ( <img src={park_image} alt="park_logo"></img> );
         default:
             park_image = USTUDIOS_FL_LOGO;
-            return ( <MagicKingdomLogo /> ); 
+            return ( <img src={park_image} alt="park_logo"></img> );
     }
 
 }
