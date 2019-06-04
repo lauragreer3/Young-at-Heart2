@@ -22,6 +22,10 @@ var VacationSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    description: {
+        type: String,
+        default: 'My Orlando Vacaiton'
+    },
     vacation_days: [
         {
             vacation_date: Date,

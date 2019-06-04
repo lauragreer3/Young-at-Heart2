@@ -79,6 +79,7 @@ class Vacations extends Component {
                         vacation_nickname={vacation.vacation_nickname}
                         start_date={vacation.start_date}
                         end_date={vacation.end_date}
+                        description={vacation.description}
                         id={vacation._id}
                         key={vacation._id}
                         onDelete={this.onDelete}

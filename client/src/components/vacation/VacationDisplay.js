@@ -39,7 +39,7 @@ class VacationDisplay extends Component {
                         <strong className="d-inline-block mb-2 text-primary">Orlando, FL</strong>
                         <h3 className="mb-0">{ this.state.vacation_nickname } </h3>
                         <div className="mb-1 text-muted">{ this.state.start_date.toLocaleDateString() + ' - ' + this.state.end_date.toLocaleDateString() }</div>
-                        <p className="card-text mb-auto">This is a longer vacation description to test for width problem</p>
+                        <p className="card-text mb-auto">{this.props.description}</p>
                         <Link to={`/view_vacation/${ this.state.id }`}>View vacation</Link>
                     </div>
                     <div className="col-auto d-none d-lg-block">

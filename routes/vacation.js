@@ -21,6 +21,7 @@ router.post('/create_vacation', passport.authenticate('jwt', { session: false}),
         vacation_nickname: req.body.vacation_nickname,
         start_date: req.body.start_date,
         end_date: req.body.end_date,
+        description: req.body.description,
         user_id: req.user._id //@TODO FIGURE OUT HOW TO GET USER ID FROM JSON WEB TOKEN
       });
       newVacation.save(function(err, vacation) {
