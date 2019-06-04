@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
+import './components/pages/home';
+import HomePage from './components/pages/home';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      vacations: []
+      vacations: [],
+      isLoggedIn: false
     };
   }
   componentDidMount() {
@@ -34,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        Welcome to Young At Heart
+        <HomePage />
       </div>
     )
   }

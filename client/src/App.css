@@ -41,6 +41,12 @@ html, body {
   font-family: 'Wizards Magic';
 }
 
+/* Home Page */
+.marketing-image {
+  max-height: 260px;
+  width: auto;
+  display: flex;
+}
 
 @keyframes App-logo-spin {
   from {
