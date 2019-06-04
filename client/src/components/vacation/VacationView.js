@@ -24,12 +24,14 @@ class VacationView extends Component {
           }
         };
         this._isMounted = false;
+        this.onChange = this.onChange.bind(this);
+        this.changePark = this.changePark.bind(this);
     }
 
     onChange = (e) => {
-        const state = this.state.vacation
-        state[e.target.name] = e.target.value;
-        this.setState(state);
+        // const state = this.state.vacation
+        // state[e.target.name] = e.target.value;
+        // this.setState(state);
     }
 
     getVacationData() {
@@ -56,9 +58,15 @@ class VacationView extends Component {
 
     onChangeEndDate = date => this.setState({ vacation: { end_date: date }});
 
-    changePark = ( parkId, vacationDayId, parentDisplay ) => {
+    changePark = ( parkId, vacationDayId ) => {
         // this.setState({ vacation.vacation_days[vacationDayId] : {park_selected: parkId} });
-        
+        // var tempVacationDays = Object.assign({}, this.state.vacation.vacation_days);
+        var tempVacationDays = [...this.state.vacation.vacation_days];
+        console.log('called change park in vacaiton view');
+        console.log(tempVacationDays);
+        tempVacationDays[vacationDayId].park_selected = parkId;
+        this.setState({ vacation: {vacation_days: tempVacationDays }});
+        //console.log(this.state);
     }    
 
     render() {
@@ -81,12 +89,14 @@ class VacationView extends Component {
                     <label htmlFor="end_date">Enter an end date:</label>
                     <DatePicker id="end_date" selected={ new Date(this.state.vacation.end_date) } onChange={this.onChangeEndDate}></DatePicker>
                 </div>
-                { vacation.vacation_days.map(vacation_day => (
+                { vacation.vacation_days.map((vacation_day, index) => (
                     <VacationDay
                         vacation_date = {vacation_day.vacation_date}
+                        park_selected = { vacation_day.park_selected}
                         parentDisplay = { this }
                         onChangePark = { this.changePark }
                         key = { vacation_day._id }
+                        park_index = { index }
                     />
                 ))}
             </div>

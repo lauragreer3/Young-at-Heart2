@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../Login.css';
-import Select from 'react-select';
+// import Select from 'react-select';
 import { ReactComponent as MagicKingdomLogo } from '../../assets/logos/MagicKingdom.svg';
 import { ReactComponent as EpcotLogo } from '../../assets/logos/Epcot.svg';
 import { ReactComponent as HollywoodStudiosLogo } from '../../assets/logos/DisneySorcerer.svg';
@@ -25,7 +25,7 @@ const park_options = [
 */
 function ParkLogo(props) {
     var park_image = USTUDIOS_FL_LOGO;
-    console.log(props);
+    console.log(props.park_selected);
     switch (props.park_selected) {
         case "WDW_MK":
             park_image = MagicKingdomLogo;
@@ -63,19 +63,34 @@ class VacationDay extends Component {
             rides: []
         };
         this._isLoaded = false;
+        this.onChangePark = this.onChangePark.bind(this);
     }
 
-    handleParkChange = (current_park, { action}) => {
-        if(action === 'input-change') {
-            this.setState({
-                current_park: current_park,
-                previous_park: this.state.current_park
-        });
-        console.log('option selected: ');
-        console.log(this.state.current_park);
-    }
+//     handleParkChange = (current_park, { action}) => {
+//         if(action === 'input-change') {
+//             if(this.state.previous_park ! == current_park)
+//             {
+//                 this.setState({
+//                     current_park: current_park,
+//                     previous_park: this.state.current_park
+//                 });
+//             }
+//             console.log('option selected: ');
+//             console.log(this.state.current_park);
+//     }
+// }
+
+onChangePark(e) {
+    console.log('called vacationday conchangepark');
+    console.log(e);
+    // this.setState({current_park: e.target.value});
+    // send the data up to the vacation view
+    this.props.onChangePark(e.target.value, this.props.park_index);
+    this._isLoaded = false;
 }
-    load_park_wait_times(date_to_load=Date.now, park_id=this.state.current_park) {
+
+
+    load_park_wait_times(date_to_load=this.props.vacation_date, park_id=this.props.park_selected) {
         axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
         axios.post('/api/parks/' , {
             park_id: park_id,
@@ -118,19 +133,18 @@ class VacationDay extends Component {
                     <div className="row">
                         <div className="col-3">{date_formatted}</div>
                         <div className="col-9">
-                            <Select
-                                inputvalue={this.state.current_park}
-                                onInputChange={this.handleParkChange}
-                                options={park_options}
-                                defaultValue={park_options[0]}
-                            />    
+                            <select id={this.props.park_index} value={this.props.park_selected} onChange={this.onChangePark}>
+                                { park_options.map((park) => (
+                                    <option key={park._id} value={park.value}>{park.label}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
                 </div>
                     <div className="card-body">
                         <div className="row">
                             <div className="col-4">
-                                <div className="row"><ParkLogo park_selected={this.state.current_park} /></div>
+                                <div className="row"><ParkLogo park_selected={this.props.park_selected} /></div>
                                 <div className="row">Overall Wait Time</div>
                                 <div className="row"><h3>5/10</h3></div>
                             </div>
